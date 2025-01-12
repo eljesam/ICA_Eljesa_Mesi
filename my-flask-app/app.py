@@ -1,6 +1,6 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
-from app.hardware.hardware_control import initialize_hardware, read_sensor_data, control_acutator
+from app.hardware_code.hardware_control import initialize_hardware, read_sensor_data, control_actuator, cleanup_hardware
 from app.pubnub_config import pubnub
 
 app = Flask(__name__)
@@ -13,6 +13,11 @@ from app.models import User, Device, ObstacleDetection
 @app.route('/')
 def index():
     sensor_data = read_sensor_data()
+    if sensor_data:
+        control_actuator('Obstacle detected')
+        log = ObstacleDetection(timestamp = datetime.now(), distance = sensor_data, device_id = 1)
+        db.session.add(log)
+        db.session.commit()
     return render_template('index.html', sensor_data=sensor_data)
 
 @app.route('/about')
@@ -29,7 +34,11 @@ def contact():
 
 if __name__ == '__main__':
     initialize_hardware()
-    app.run(debug=True)
+    try:
+        app.run(debug=True)
+        
+    finally:
+        cleanup_hardware()
     
     
 from pubnub.callbacks import SubscribeCallback
