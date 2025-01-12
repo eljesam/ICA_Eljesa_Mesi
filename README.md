@@ -8,9 +8,9 @@
  Connected db to app.
  Connected pubnub to app.
  Connected database to pubnub.
+ Coded Hardware.
 
  # To Do:
  Deploy from AWS,
- Code hardware,
  Add Security,
  

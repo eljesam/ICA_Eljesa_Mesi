@@ -2,6 +2,7 @@ from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from app.hardware_code.hardware_control import initialize_hardware, read_sensor_data, control_actuator, cleanup_hardware
 from app.pubnub_config import pubnub
+from datetime import datetime
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root@localhost/vision_control'
