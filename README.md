@@ -2,10 +2,11 @@
 
 # Progress:
  Idealizing how the website will look before adapting to flask.
+ Create a flask app.
+ Goolge Login.
 
  # To Do:
- Create a flask app,
  Deploy from AWS,
  Code hardware,
  Add Security,
- Google LogIn
+ 
